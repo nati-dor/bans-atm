@@ -17,3 +17,17 @@ td:hover {
     background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
     color: white;
 }
+
+.map-container,#gmap_canvas{
+    height:350px;width: 100%;
+}
+#gmap_canvas img{
+    max-width:none!important;
+    background:none!important
+}
+
+.divMap{
+    text-align: center;
+    padding: 0px !important;
+    margin: 0px !important;
+}

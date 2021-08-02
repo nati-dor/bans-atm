@@ -1,4 +1,4 @@
-ATM 
+#ATM's 
 
-Location of ATM's in Israel# banks-atm-s
-# bans-atm
+Location of ATM's in Israel
+

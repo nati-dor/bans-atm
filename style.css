@@ -19,7 +19,7 @@ td:hover {
 }
 
 .map-container,#gmap_canvas{
-    height:350px;width: 100%;
+    height:450px;width: 100%;
 }
 #gmap_canvas img{
     max-width:none!important;

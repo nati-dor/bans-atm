@@ -4,7 +4,7 @@ import {DataTable} from './node_modules/simple-datatables/dist/module/index.js'
 const tbody = document.querySelector("#tbody");
 const myTable = document.querySelector("#myTable");
 const selectorMapElement = document.querySelector('#gmap_canvas');
-
+let temp
 
 const myAxios =()=> axios.get("https://data.gov.il/api/3/action/datastore_search?resource_id=b9d690de-0a9c-45ef-9ced-3e5957776b26&limit=500")
     .then(response => {
@@ -13,9 +13,13 @@ const myAxios =()=> axios.get("https://data.gov.il/api/3/action/datastore_search
     })
     .then(response => {
         google.maps.event.addDomListener(window, 'load', addAtmToMap(response.data.result.records));
+        return response
+    })
+    .then(response => {
+        const inputEL = document.querySelector(".dataTable-input");
+        inputEL.addEventListener("input",()=>inputChange(inputEL.value,response.data.result.records))
     })
     .catch(err => console.log(err))
-
 
 myAxios()
 
@@ -51,7 +55,7 @@ const myOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP
 };
 
-const map = new google.maps
+let map = new google.maps
 .Map(selectorMapElement, myOptions)
 
 const init_map=(googleMapLat,googleMapLong,googleMapTitle,googleMapAddress)=> {
@@ -73,4 +77,15 @@ const init_map=(googleMapLat,googleMapLong,googleMapTitle,googleMapAddress)=> {
     google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
     });
+}
+
+const inputChange=(str,arrData)=>{
+    temp=arrData.filter((element)=>{
+       if(element.Bank_Name.includes(str) || element.ATM_Address.includes(str) || element.City.includes(str) || (element.Branch_Code+"").includes(str) || (element.Bank_Code+"").includes(str))
+       return true
+       else return false
+    })
+    map = new google.maps
+    .Map(selectorMapElement, myOptions)
+    addAtmToMap(temp)
 }
